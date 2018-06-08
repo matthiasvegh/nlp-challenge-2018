@@ -18,6 +18,38 @@ def property(tokens):
     return properties[remainder](value)
 
 
+def convert(tokens):
+    print('converting')
+    value = int(tokens[0][1])
+    unitFrom = tokens[2][1]
+    unitTo = tokens[6][1]
+    conversions = {
+        ('days', 'hours'): 24,
+        ('days', 'minutes'): 24*60,
+        ('days', 'seconds'): 24*3600,
+        ('hours', 'minutes'): 60,
+        ('minutes', 'seconds'): 60,
+        ('hours', 'seconds'): 3600,
+        ('metres', 'feet'): 3.28084,
+        ('metres', 'yards'): 1.09361,
+        ('metres', 'inches'): 39.3701,
+        ('yards', 'feet'): 3,
+        ('yards', 'inches'): 36,
+        ('feet', 'inches'): 12,
+        ('miles', 'kilometres'): 1.60934,
+        ('miles', 'yards'): 1760,
+    }
+    try:
+        coeff = conversions[(unitFrom, unitTo)]
+        return str(value * coeff) + ' ' + unitTo
+    except KeyError:
+        try:
+            coeff = conversions[(unitTo, unitFrom)]
+            return str(value / coeff) + ' ' + unitTo
+        except KeyError:
+            return 85
+
+
 class QuerySolver(object):
     def __init__(self):
         pass
@@ -27,4 +59,6 @@ class QuerySolver(object):
         tokens = token.tokenize(query)
         if tokens[0][1] == 'Is' and tokens[-1][1] == '?':
             return property(tokens[2:-1])
+        if len(tokens) == 7 and tokens[-3][1] == 'in':
+            return convert(tokens)
         return 85
