@@ -1,5 +1,6 @@
 import webhandler
 import token
+import infix_parser
 
 def isLeapYear(year):
     if year % 4 == 0:
@@ -72,4 +73,10 @@ class QuerySolver(object):
             return convert(tokens)
         if len(tokens) == 13 and tokens[-3][1] == '=' and tokens[6][1] == '+':
             return "x = " + str(solveSimple(tokens))
-        return 85
+        try:
+            result = infix_parser.infix_eval(query)
+            if int(result) == result:
+                return int(result)
+            return result
+        except:
+            return 85
