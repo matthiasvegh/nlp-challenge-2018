@@ -21,6 +21,12 @@ def tokenize(s):
 
     return tokens
 
+def filter_whitespace(tokens):
+    return list(filter(lambda x: x[0] != 'whitespace', tokens))
+
+def print_tokens(tokens):
+    for t in tokens:
+        print(t)
 
 if __name__ == '__main__':
     for t in tokenize('34 - (IV - asdasd?)'):
