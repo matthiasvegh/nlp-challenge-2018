@@ -60,6 +60,16 @@ def solveSimple(tokens):
         return int(solution)
 
 
+def solveMult(tokens):
+    print('Solving mult equation')
+    coeff = int(tokens[0][1])
+    coeff2 = int(tokens[8][1])
+    result = int(tokens[-1][1])
+    solution = (result / coeff2) / coeff
+    if solution == int(solution):
+        return int(solution)
+
+
 class QuerySolver(object):
     def __init__(self):
         pass
@@ -73,6 +83,8 @@ class QuerySolver(object):
             return convert(tokens)
         if len(tokens) == 13 and tokens[-3][1] == '=' and tokens[6][1] == '+':
             return "x = " + str(solveSimple(tokens))
+        if len(tokens) == 13 and tokens[-3][1] == '=' and tokens[6][1] == '*':
+            return "x = " + str(solveMult(tokens))
         try:
             result = infix_parser.infix_eval(query)
             if int(result) == result:
