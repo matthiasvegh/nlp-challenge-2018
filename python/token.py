@@ -9,6 +9,7 @@ def tokenize(s):
         ('operator', re.compile('^[-+/*=]'), 0),
         ('parentheses', re.compile('^[()]'), 0),
         ('roman_number', re.compile('^([IVXLCDM]+) '), 1),
+        ('roman_number', re.compile('^([IVXLCDM]+)$'), 1),
         ('word', re.compile('^[a-zA-Z]+'), 0),
         ('questionmark', re.compile('^\?'), 0)
     ]

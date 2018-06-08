@@ -83,4 +83,4 @@ def infix_eval(s):
     return res
 
 if __name__ == '__main__':
-    print(infix_eval('VI + IV '))
+    print(infix_eval('VI + IV'))
