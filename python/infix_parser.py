@@ -46,7 +46,6 @@ def to_rpn_tokens(tokens):
 
 def infix_eval(s):
     rpn = to_rpn_tokens(tokenize(s))
-    print_tokens(rpn)
     stack = []
     for t in rpn:
         if t[0] == 'operator':
