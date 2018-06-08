@@ -43,7 +43,7 @@ def value_blocks(bs):
 def is_descending(bs):
     last_value = None
     for digit_value, _ in bs:
-        if last_value is None or digit_value < last_value:
+        if last_value is None or digit_value <= last_value:
             last_value = digit_value
             continue
         return False
