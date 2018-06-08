@@ -94,7 +94,31 @@ def to_roman(value):
         result += 'CD'
         value -= 400
     elif value >= 100:
-        pass
+        cs = value // 100
+        result += 'C' * cs
+        value = value % 100
+
+    if value >= 90:
+        result += 'XC'
+        value -= 90
+    elif value >= 50:
+        result += 'L'
+        value -= 50
+
+    if value >= 40:
+        result += 'XL'
+        value -= 40
+    elif value >= 10:
+        xs = value // 10
+        result += 'X' * xs
+        value = value % 10
+
+
+    vs = '- I II III IV V VI VII VIII IX'.split()
+    assert value < 10, 'Invalid value: {}'.format(value)
+
+    if value > 0:
+        result += vs[value]
 
     return result
 
@@ -102,4 +126,4 @@ def to_roman(value):
 
 
 if __name__ == '__main__':
-    print(from_roman('DIX'))
+    print(to_roman(from_roman('LIX')))
