@@ -87,8 +87,6 @@ class QuerySolver(object):
             return "x = " + str(solveMult(tokens))
         try:
             result = infix_parser.infix_eval(query)
-            if int(result) == result:
-                return int(result)
             return result
         except:
             return 85
