@@ -7,14 +7,14 @@ def precendence(op):
         return 2
 
 
-def infix_eval(s):
-    tokens = filter_whitespace(tokenize(s))
+def to_rpn_tokens(tokens):
+    tokens = filter_whitespace(tokens)
 
     output_tokens = []
     operator_stack = []
 
     for token in tokens:
-        if token[0] == 'number':
+        if token[0] == 'number' or token[0] == 'roman_number':
             output_tokens.append(token)
         elif token[0] == 'operator':
             while len(operator_stack):
@@ -41,5 +41,35 @@ def infix_eval(s):
         output_tokens.append(operator_stack[-1])
         operator_stack.pop()
 
+    return output_tokens
+
+
+def infix_eval(s):
+    rpn = to_rpn_tokens(tokenize(s))
+    print_tokens(rpn)
+    stack = []
+    for t in rpn:
+        if t[0] == 'operator':
+            if t[1] == '+':
+                rhs = stack.pop()
+                lhs = stack.pop()
+                stack.append(lhs + rhs)
+            if t[1] == '-':
+                rhs = stack.pop()
+                lhs = stack.pop()
+                stack.append(lhs - rhs)
+            if t[1] == '*':
+                rhs = stack.pop()
+                lhs = stack.pop()
+                stack.append(lhs * rhs)
+            if t[1] == '/':
+                rhs = stack.pop()
+                lhs = stack.pop()
+                stack.append(lhs / rhs)
+        else:
+            stack.append(t[1])
+
+    return stack[-1]
+
 if __name__ == '__main__':
-    print(infix_eval('(34 + 35) * 3'))
+    print(infix_eval('(IV - VI ) / II '))

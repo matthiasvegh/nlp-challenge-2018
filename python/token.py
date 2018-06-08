@@ -1,4 +1,5 @@
 import re
+import roman
 
 def tokenize(s):
     tokens = []
@@ -15,7 +16,13 @@ def tokenize(s):
         for r in regexes:
             m = r[1].match(s)
             if m:
-                tokens.append((r[0], m.group(r[2])))
+                val = m.group(r[2])
+                if r[0] == 'number':
+                    val = int(val)
+                elif r[0] == 'roman_number':
+                    val = roman.from_roman(val)
+
+                tokens.append((r[0], val))
                 s = s[len(m.group(r[2])):]
                 continue
 
