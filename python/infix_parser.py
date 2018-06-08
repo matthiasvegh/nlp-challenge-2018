@@ -45,7 +45,13 @@ def to_rpn_tokens(tokens):
 
 
 def infix_eval(s):
-    rpn = to_rpn_tokens(tokenize(s))
+    tokens = tokenize(s)
+    roman_num = False
+    for token in tokens:
+        if token[0] == 'roman_number':
+            roman_num = True
+
+    rpn = to_rpn_tokens(tokens)
     stack = []
     for t in rpn:
         if t[0] == 'operator':
@@ -68,7 +74,13 @@ def infix_eval(s):
         else:
             stack.append(t[1])
 
-    return stack[-1]
+    res = stack[-1]
+    if int(res) == res:
+        res = int(res)
+
+    if roman_num:
+        res = roman.to_roman(res)
+    return res
 
 if __name__ == '__main__':
-    print(infix_eval('(IV - VI ) / II '))
+    print(infix_eval('VI + IV '))
