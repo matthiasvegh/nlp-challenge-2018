@@ -49,6 +49,15 @@ def convert(tokens):
         except KeyError:
             return 85
 
+def solveSimple(tokens):
+    print('Solving simple equation')
+    coeff = int(tokens[0][1])
+    constant = int(tokens[8][1])
+    result = int(tokens[-1][1])
+    solution = (result - constant) / coeff
+    if solution == int(solution):
+        return int(solution)
+
 
 class QuerySolver(object):
     def __init__(self):
@@ -61,4 +70,6 @@ class QuerySolver(object):
             return property(tokens[2:-1])
         if len(tokens) == 7 and tokens[-3][1] == 'in':
             return convert(tokens)
+        if len(tokens) == 13 and tokens[-3][1] == '=' and tokens[6][1] == '+':
+            return "x = " + str(solveSimple(tokens))
         return 85
