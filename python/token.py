@@ -5,7 +5,7 @@ def tokenize(s):
     regexes = [
         ('whitespace', re.compile('^ +')),
         ('number', re.compile('^[0-9]+')),
-        ('operator', re.compile('^[-+/*]')),
+        ('operator', re.compile('^[-+/*=]')),
         ('parentheses', re.compile('^[()]')),
         ('roman_number', re.compile('^[IVXLCDM]+')),
         ('word', re.compile('^[a-zA-Z]+')),
